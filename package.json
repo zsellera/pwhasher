@@ -1,0 +1,17 @@
+{
+  "name": "@zsellera/pwhasher",
+  "version": "1.0.0",
+  "description": "Password Hasher Plus for command line",
+  "bin": {
+    "pwhasher": "./pwhasher.js"
+  },
+  "keywords": [
+    "password",
+    "hasher"
+  ],
+  "author": "Attila Zseller",
+  "license": "MPL-1.1",
+  "dependencies": {
+    "clipboardy": "^3.0.0"
+  }
+}
