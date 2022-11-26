@@ -7,8 +7,8 @@ const readline = require('readline');
 const clipboardPromise = import('clipboardy');
 
 
-function generateHash (policy, tag, input) {
-    let tag0 = PassHashCommon.generateHashWord (
+function generateHash(policy, tag, input) {
+    let tag0 = PassHashCommon.generateHashWord(
         policy.seed,
         tag,
         24,
@@ -19,19 +19,19 @@ function generateHash (policy, tag, input) {
         false // only digits
     );
 
-	return PassHashCommon.generateHashWord (
-		tag0.replace(/^\*+/, ''),
-		input,
-		policy.length,
-		true, // require digits
-		policy.strength > 1, // require punctuation
-		true, // require mixed case
-		policy.strength < 2, // no special characters
-		policy.strength == 0 // only digits
-	);
+    return PassHashCommon.generateHashWord(
+        tag0,
+        input,
+        policy.length,
+        true, // require digits
+        policy.strength > 1, // require punctuation
+        true, // require mixed case
+        policy.strength < 2, // no special characters
+        policy.strength == 0 // only digits
+    );
 }
 
- 
+
 
 let database = fs.readFileSync(homedir + '/.pwhasher.json');
 let config = JSON.parse(database);
@@ -45,8 +45,8 @@ let policy = {
 };
 
 let rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
+    input: process.stdin,
+    output: process.stdout
 });
 
 rl._writeToOutput = function _writeToOutput(stringToWrite) {
@@ -58,7 +58,7 @@ rl._writeToOutput = function _writeToOutput(stringToWrite) {
 
 rl.stdoutMuted = true;
 rl.query = 'Password: ';
-rl.question(rl.query, function(password) {
+rl.question(rl.query, function (password) {
     let hash = generateHash(policy, tag, password.trim());
     clipboardPromise
         .then(cbModule => cbModule.default.writeSync(hash))
